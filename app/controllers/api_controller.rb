@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
   before_action :set_default_format
-  before_action authenticate_token!
+  before_action :authenticate_token!
 
   private
 
@@ -9,7 +9,7 @@ class ApiController < ApplicationController
   end
 
   def authenticate_token!
-    JsonWebToken.decode(auth_token)
+    payload = JsonWebToken.decode(auth_token)
     if payload.present?
       @current_user = User.find(payload["sub"])
       print @current_user
@@ -19,6 +19,6 @@ class ApiController < ApplicationController
   end
 
   def auth_token
-    @auth_token ||= request.headers.fetch(["Authorization"], "").split(" ").last
+    request.headers.fetch("Authorization", "").split(" ").last
   end
 end
