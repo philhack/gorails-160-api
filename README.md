@@ -1,24 +1,72 @@
-# README
+## Overview
+This is going through: https://gorails.com/episodes/our-first-api to build an API
+* Build API with versioning that returns json objects
+* Create two rails models using generators
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Original Source Code:
+https://github.com/gorails-screencasts/weather-api.git
 
-Things you may want to cover:
+## Create a new Rails App
+```
+rails new weather
+```
 
-* Ruby version
+## Generate Location Model
+```
+rails g model Location name		# generates a Location object with a name property
+```
 
-* System dependencies
+## Generate Recording Model
+```
+rails g model Recording location:references temp:integer status
+```
 
-* Configuration
+This creates a belongs_to relationship on the record model to the location model
+```
+class Recording < ApplicationRecord
+  belongs_to :location
+end
+```
 
-* Database creation
+and in the DB migrations, we see:
+```
+create_table :recordings do |t|
+      t.references :location, foreign_key: true
+```
 
-* Database initialization
+## DB Migrations
+```
+rake db:migrate
+```
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Seeing the DB
+```
+rake db:seed
+```
 
-* Deployment instructions
+## Running the Rails Console
+```
+rails c  # rails console
+```
 
-* ...
+
+## Get Last Location with Last Temperature Recordings
+Location.last.recordings.last
+
+
+## List all of your routes
+```
+rake routes
+```
+
+## Calling our API
+We can call our API via:
+```
+curl http://localhost:3000/api/v1/locations/1
+```
+
+## Getting a JWT Token
+```
+curl --data "auth[email]=chris@gorails.com&auth[password]=password" http://localhost:3000/api/v1/user_token
+```
