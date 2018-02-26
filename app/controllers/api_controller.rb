@@ -1,4 +1,5 @@
 class ApiController < ApplicationController
+  attr_reader :current_user
   before_action :set_default_format
   before_action :authenticate_token!
 
@@ -10,12 +11,12 @@ class ApiController < ApplicationController
 
   def authenticate_token!
     payload = JsonWebToken.decode(auth_token)
-    if payload.present?
-      @current_user = User.find(payload["sub"])
-      print @current_user
-    else
-      render json: {errors: ["Invalid auth token"]}, status: :unauthorized
-    end
+    @current_user = User.find(payload["sub"])
+  rescue JWT::ExpiredSignature
+    render json: {errors: ["Auth token has expired"]}, status: :unauthorized
+  rescue JWT::DecodeError
+    render json: {errors: ["Invalid auth token"]}, status: :unauthorized
+
   end
 
   def auth_token
