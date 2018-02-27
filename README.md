@@ -87,4 +87,11 @@ The middle part the of the JWT holds the payload, you can base64 decode this usi
 window.atob("eyJleHAiOjE1MTk3Mzg4NzgsInN1YiI6MSwiYWRtaW4iOnRydWUsImVtYWlsIjoiY2hyaXNAZ29yYWlscy5jb20ifQ")
 ```
 which produces: `"{"exp":1519738878,"sub":1,"admin":true,"email":"chris@gorails.com"}"`
-```
+
+## Active Model Serializers with JSON API Spec
+
+* [JSON API Spec](http://jsonapi.org/)
+* [Active Model Serializers (github)](https://github.com/rails-api/active_model_serializers)
+* [Active Model Serializers (gem)](https://rubygems.org/gems/active_model_serializers)
+
+
