@@ -66,6 +66,13 @@ We can call our API via:
 curl http://localhost:3000/api/v1/locations/1
 ```
 
+## Knock
+This can be used for JWT auth/token creation
+
+* https://rubygems.org/gems/knock
+* https://github.com/nsarno/knock
+
+
 ## JWT
 
 ### Getting a JWT Token
@@ -80,6 +87,4 @@ The middle part the of the JWT holds the payload, you can base64 decode this usi
 window.atob("eyJleHAiOjE1MTk3Mzg4NzgsInN1YiI6MSwiYWRtaW4iOnRydWUsImVtYWlsIjoiY2hyaXNAZ29yYWlscy5jb20ifQ")
 ```
 which produces: `"{"exp":1519738878,"sub":1,"admin":true,"email":"chris@gorails.com"}"`
-
-
 ```
